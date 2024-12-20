@@ -1,4 +1,5 @@
 import sys
+from time import perf_counter
 
 input_path = 'input.txt'
 sys.setrecursionlimit(10000)
@@ -59,13 +60,14 @@ def reachable(p, dist):  # diamond of radius dist
             if p[1] + j < 0 or p[1] + j > n:
                 continue
 
-            if postman_distance(p, (p[0] + i, p[1] + j)) <= dist:
+            if postman_distance(p, (p[0] + i, p[1] + j)) == dist:
                 r[(p[0] + i, p[1] + j)] = postman_distance(p, (p[0] + i, p[1] + j))
 
     return r
 
 cheats = {}
 
+tic = perf_counter()
 for i in range(1, max_cheat + 1):
     print(i)
     for snode in nodes:
@@ -82,3 +84,6 @@ for i in range(1, max_cheat + 1):
                 cheats[(snode, enode)] = time_saved(snode, enode)
 
 print(sum([1 for c in cheats if cheats[c] >= 100]))
+toc = perf_counter()
+
+print('Executed in:', toc - tic, 's')
