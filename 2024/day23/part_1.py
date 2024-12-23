@@ -9,7 +9,14 @@ edges = [(x[0:2], x[3:5]) for x in input.split('\n')[:-1]]
 G = nx.Graph()
 G.add_edges_from(edges)
 
-lan = max(list(nx.find_cliques(G)), key=lambda x: len(x))  # maximum clique
-lan = sorted(lan)
+cliques = [s for s in nx.enumerate_all_cliques(G) if len(s) == 3]  # 3-cliques
 
-print(','.join(lan))
+def has_t(clique):
+    for node in clique:
+        if node[0] == 't':
+            return True
+
+    return False
+
+total = sum([1 for c in cliques if has_t(c)])
+print(total)
