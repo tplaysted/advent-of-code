@@ -5,9 +5,6 @@ const ranges = input
   .slice(0, input.indexOf(""))
   .map((x) => x.split("-").map((n) => parseInt(n)));
 
-const begin = Math.min(...ranges.map((range) => range[0]));
-const end = Math.max(...ranges.map((range) => range[1]));
-
 let reduced = []; // assume all ranges in this are mutually exclusive
 
 for (const range of ranges) {
@@ -50,10 +47,6 @@ for (const range of ranges) {
     ];
   }
 }
-
-reduced.sort((a, b) => a[0] - b[0]);
-
-//console.log(reduced);
 
 const answer = reduced.reduce((a, c) => a + c[1] - c[0] + 1, 0);
 console.log(answer);
